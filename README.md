@@ -8,7 +8,7 @@ The dockers are organized in the folder `/dockerfiles`.
 
 Currently only the docker for ubuntu18.04 is available but more versions will be added soon.
 
-> ❗Currently supports running mitsuba through the command line interface, but enabling mitsuba GUI should be possible following [mitsuba-docker](https://github.com/benjamin-heasly/mitsuba-docker)
+> ❗Currently supports running mitsuba through the command-line interface, but enabling mitsuba GUI should be possible following [mitsuba-docker](https://github.com/benjamin-heasly/mitsuba-docker)
 
 ## Build and run the dockers
 
@@ -26,9 +26,9 @@ docker run -it your-name/mitsuba-conda
 
 ## Render a scene
 
-To render a scene, you could run the docker mounting the folder `your-folder` containing your `your-scene.xml`.
+You could run the docker mounting the folder `your-folder` containing `your-scene.xml` to render that scene.
 
-`your-folder` will be mounted in `/app` and with the command `mitsuba /app/your-scene.xml` we can render the scene.
+`your-folder` will be mounted in `/app`, and we can render the scene with the command `mitsuba /app/your-scene.xml`.
 
 Two ways of doing this:
 
@@ -72,4 +72,4 @@ docker run your-name/mitsuba-conda python3.7 -c "import mitsuba;from mitsuba.cor
 
 ```
 
-> Make sure to specify the correct version of python installed with Conda. By default the command python will invoke python2.7 interpreter.
+> Make sure to specify the correct version of python installed with Conda. By default, the command python will invoke python2.7 interpreter.
