@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-LABEL authors="Luca Quartesan"
+LABEL authors="Luca Quartesan - luca@traverseresearch.nl"
 
 ### mitsuba dependencies
 RUN apt-get update \
@@ -9,7 +9,6 @@ RUN apt-get update \
     libcollada-dom-dev \
     scons \
     git \
-    qt4-dev-tools \
     libpng-dev \
     libjpeg-dev \
     libilmbase-dev \
@@ -21,13 +20,13 @@ RUN apt-get update \
     libpcrecpp0v5 \
     libeigen3-dev \
     libfftw3-dev \
-    wget \
     && apt-get clean \
     && apt-get autoclean \
     && apt-get autoremove
 
 ## anaconda
-ENV PATH="/root/miniconda3/bin:${PATH}"
+
+
 RUN apt-get update
 RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 RUN wget \
@@ -35,6 +34,7 @@ RUN wget \
     && mkdir /root/.conda \
     && bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b \
     && rm -f Miniconda3-py37_4.10.3-Linux-x86_64.sh
+ENV PATH="/root/miniconda3/bin:${PATH}"
 RUN conda install boost -y
 
 # build mitsuba
@@ -47,5 +47,5 @@ RUN cp build/config-linux-gcc.py config.py \
 # set env variables as setpath.sh
 ENV MITSUBA_DIR="/mitsuba/mitsuba"
 ENV PYTHONPATH="/mitsuba/mitsuba/dist/python:/mitsuba/mitsuba/dist/python/3.7:$PYTHONPATH"
-ENV PATH="/mitsuba/mitsuba/wrapper:/mitsuba/mitsuba/dist:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+ENV PATH="/mitsuba/mitsuba/dist:$PATH"
 ENV LD_LIBRARY_PATH="/root/miniconda3/lib/:/mitsuba/mitsuba/dist:$LD_LIBRARY_PATH"

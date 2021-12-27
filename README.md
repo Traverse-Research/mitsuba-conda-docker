@@ -14,13 +14,13 @@ Currently only the docker for ubuntu18.04 is available but more versions will be
 
 to build a docker:
 
-```
+```shell
 docker build -t your-name/mitsuba-conda ./dockerfiles/ubuntu18.04
 ```
 
 to run
 
-```
+```shell
 docker run -it your-name/mitsuba-conda
 ```
 
@@ -33,17 +33,17 @@ You could run the docker mounting the folder `your-folder` containing `your-scen
 Two ways of doing this:
 
 1. either run the container in the terminal
-   ```
+   ```shell
    docker run --mount type=bind,source="$(pwd)"/your-folder,target=/app -it your-name/mitsuba-conda
    ```
    and then run this mitsuba command
-   ```
+   ```shell
    mitsuba /app/your-scene.xml
    ```
 2. or run the container without a terminal but provide the mitsuba command already
 
-   ```
-   docker run --mount type=bind,source="$(pwd)"/your-folder,target=/app your-name/mitsuba-conda /app/your-scene.xml
+   ```shell
+   docker run --mount type=bind,source="$(pwd)"/your-folder,target=/app your-name/mitsuba-conda mitsuba /app/your-scene.xml
    ```
 
 > 📸 Both ways will output `your-scene.exr` in the folder containing `your-scene.xml`
@@ -58,7 +58,7 @@ To test rendering a scene.
 
 3.  Finally run:
 
-    ```
+    ```shell
     docker run --mount type=bind,source="$(pwd)"/cbox,target=/app your-name/mitsuba-conda mitsuba /app/cbox.xml
     ```
 
@@ -67,9 +67,9 @@ To test rendering a scene.
 The dockers are already set up so that conda installs a suitable version of boost-python required by Mitsuba.
 To test the mitsuba python binding run:
 
-```
+```shell
 docker run your-name/mitsuba-conda python3.7 -c "import mitsuba;from mitsuba.core import Vector;print(Vector(1.0, 2.0, 3.0))"
 
 ```
 
-> Make sure to specify the correct version of python installed with Conda. By default, the command python will invoke python2.7 interpreter.
+> Make sure to specify the correct version of python installed with Conda. By default, the command `python` will invoke python2.7 interpreter.
