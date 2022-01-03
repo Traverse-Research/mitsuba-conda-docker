@@ -6,6 +6,7 @@ LABEL authors="Luca Quartesan - luca@traverseresearch.nl"
 RUN apt-get update \
     && apt-get install -y \
     build-essential \
+    qt4-dev-tools \
     libcollada-dom-dev \
     scons \
     git \
