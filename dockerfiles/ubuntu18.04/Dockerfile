@@ -2,13 +2,15 @@ FROM ubuntu:18.04
 
 LABEL authors="Luca Quartesan - luca@traverseresearch.nl"
 
+
 ### mitsuba dependencies
 RUN apt-get update \
     && apt-get install -y \
     build-essential \
-    qt4-dev-tools \
+    qt5-default \ 
+    libqt5opengl5-dev \
+    libqt5xmlpatterns5-dev \
     libcollada-dom-dev \
-    scons \
     git \
     libpng-dev \
     libjpeg-dev \
@@ -25,9 +27,8 @@ RUN apt-get update \
     && apt-get autoclean \
     && apt-get autoremove
 
+
 ## anaconda
-
-
 RUN apt-get update
 RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 RUN wget \
@@ -36,11 +37,12 @@ RUN wget \
     && bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b \
     && rm -f Miniconda3-py37_4.10.3-Linux-x86_64.sh
 ENV PATH="/root/miniconda3/bin:${PATH}"
-RUN conda install boost -y
+RUN conda install boost scons -y
+
 
 # build mitsuba
 WORKDIR /mitsuba
-RUN git clone https://www.github.com/Quartenia/mitsuba.git
+RUN git clone --branch scons-python3 https://www.github.com/Quartenia/mitsuba.git
 WORKDIR /mitsuba/mitsuba
 RUN cp build/config-linux-gcc.py config.py \
     && scons -j8

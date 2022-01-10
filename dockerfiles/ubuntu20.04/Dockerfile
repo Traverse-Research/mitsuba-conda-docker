@@ -10,7 +10,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y \
     build-essential \
-    scons \
     qt5-default \ 
     libqt5opengl5-dev \
     libqt5xmlpatterns5-dev \
@@ -42,7 +41,7 @@ RUN wget \
     && bash Miniconda3-py37_4.10.3-Linux-x86_64.sh -b \
     && rm -f Miniconda3-py37_4.10.3-Linux-x86_64.sh
 ENV PATH="/root/miniconda3/bin:${PATH}"
-RUN conda install boost -y
+RUN conda install boost scons -y
 
 # build mitsuba
 WORKDIR /mitsuba
